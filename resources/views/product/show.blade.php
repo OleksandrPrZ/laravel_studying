@@ -5,12 +5,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">{{__('User')}}</h1>
+                    <h1 class="m-0">{{__('Category')}}</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">{{__('User')}}</li>
+                        <li class="breadcrumb-item active">{{__('Category')}}</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -27,10 +27,10 @@
                     <div class="card">
                         <div class="card-header d-flex p-3">
                             <div class="mr-3">
-                                <a href="{{route('user.edit',$user->id)}}"
+                                <a href="{{route('category.edit',$category->id)}}"
                                    class="btn btn-primary">{{__('Edit')}}</a>
                             </div>
-                            <form action="{{route('user.delete',$user->id)}}" method="post">
+                            <form action="{{route('category.delete',$category->id)}}" method="post">
                                 @csrf
                                 @method('delete')
                                 <input type="submit" class="btn btn-danger" value="Delete">
@@ -41,27 +41,11 @@
                                 <tbody>
                                 <tr>
                                     <td>ID</td>
-                                    <td>{{$user->id}}</td>
+                                    <td>{{$category->id}}</td>
                                 </tr>
                                 <tr>
                                     <td>Name</td>
-                                    <td>{{$user->name}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Surname</td>
-                                    <td>{{$user->surname}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Age</td>
-                                    <td>{{$user->age}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Address</td>
-                                    <td>{{$user->address}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Gender</td>
-                                    <td>{{$user->usergender}}</td>
+                                    <td>{{$category->name}}</td>
                                 </tr>
                                 </tbody>
                             </table>

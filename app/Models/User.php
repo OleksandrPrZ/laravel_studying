@@ -23,6 +23,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'gender',
+        'surname',
+        'address',
+        'age'
     ];
 
     /**
@@ -53,8 +57,8 @@ class User extends Authenticatable
         ];
     }
 
-    public function getGenderAttribute()
+    public function getUsergenderAttribute()
     {
-        return self::getGenders()[$this->gender];
+        return self::getGenders()[$this->attributes['gender']];
     }
 }

@@ -27,7 +27,23 @@
                     @csrf
                     @method('patch')
                     <div class="form-group">
-                        <input type="text" name="name" class="form-control" placeholder="Name" value="{{$user->name}}">
+                        <input type="text" name="name" class="form-control" placeholder="Name" value="{{$user->name ?? old('name')}}">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="surname" class="form-control" placeholder="Surname" value="{{$user->surname ?? old('surname')}}">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="age" class="form-control" placeholder="Age" value="{{$user->age ?? old('age')}}">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="address" class="form-control" placeholder="Address" value="{{$user->address ?? old('Address')}}">
+                    </div>
+                    <div class="form-group">
+                        <select name="gender" class="custom-select form-control"  id="gender">
+                            <option disabled selected>{{__('Gender')}}</option>
+                            <option {{$user->gender == 1 || old('gender') == 1 ? ' selected' : ''}} value="1">Male</option>
+                            <option {{$user->gender == 2 || old('gender') == 2 ? ' selected' : ''}} value="2">Female</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <input type="submit" class="btn btn-primary" value="Save">

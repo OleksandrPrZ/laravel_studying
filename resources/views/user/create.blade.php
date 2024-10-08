@@ -79,7 +79,7 @@
                         <select name="gender" class="custom-select form-control"  id="gender">
                             <option disabled selected>{{__('Gender')}}</option>
                             <option {{old('gender') == 1 ? ' selected' : ''}} value="1">Male</option>
-                            <option {{old('gender') == 2 ? ' selected' : ''}} value="1">Female</option>
+                            <option {{old('gender') == 2 ? ' selected' : ''}} value="2">Female</option>
                         </select>
                     </div>
 {{--                    <div class="form-group w-50">--}}
