@@ -34,13 +34,19 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Name</th>
+                                    <th>Slug</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($products as $product)
                                     <tr>
                                         <td>{{$product->id}}</td>
-                                        <td><a href="{{route('product.show', $product->id)}}">{{$product->name}}</a></td>
+                                        <td><a href="{{route('product.show', $product->slug)}}">{{$product->name}}</a></td>
+                                        <td>{{$product->slug}}</td>
+                                        <td>{{$product->price}}</td>
+                                        <td>{{$product->quantity}}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>

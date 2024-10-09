@@ -55,11 +55,11 @@ Route::group(['prefix' => 'users'], function () {
     Route::delete('/{user}', UserController::class.'@delete')->name('user.delete');
 });
 Route::group(['prefix' => 'products'], function () {
-    Route::get('/', ProductController::class.'@index')->name('product.index');
-    Route::get('/create', ProductController::class.'@create')->name('product.create');
+    Route::get('/', [ProductController::class, 'index'])->name('product.index');
+    Route::get('/create', [ProductController::class, 'create'])->name('product.create');
     Route::post('/store', [ProductController::class, 'store'])->name('product.store');
-    Route::get('/{product}/edit', ProductController::class.'@edit')->name('product.edit');
-    Route::get('/{product}', ProductController::class.'@show')->name('product.show');
-    Route::patch('/{product}', ProductController::class.'@update')->name('product.update');
-    Route::delete('/{product}', ProductController::class.'@delete')->name('product.delete');
+    Route::get('/{product:slug}/edit', [ProductController::class, 'edit'])->name('product.edit');
+    Route::get('/{product:slug}', [ProductController::class, 'show'])->name('product.show');
+    Route::patch('/{product:slug}', [ProductController::class, 'update'])->name('product.update');
+    Route::delete('/{product:slug}', [ProductController::class, 'delete'])->name('product.delete');
 });
