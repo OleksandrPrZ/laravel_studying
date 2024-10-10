@@ -51,8 +51,8 @@ Route::group(['prefix' => 'users'], function () {
     Route::post('/store', [UserController::class, 'store'])->name('user.store');
     Route::get('/{user}/edit', UserController::class.'@edit')->name('user.edit');
     Route::get('/{user}', UserController::class.'@show')->name('user.show');
-    Route::patch('/{user}', UserController::class.'@update')->name('user.update');
-    Route::delete('/{user}', UserController::class.'@delete')->name('user.delete');
+    Route::patch('/{user}', [UserController::class,'update'])->name('user.update');
+    Route::delete('/{user}', [UserController::class,'delete'])->name('user.delete');
 });
 Route::group(['prefix' => 'products'], function () {
     Route::get('/', [ProductController::class, 'index'])->name('product.index');

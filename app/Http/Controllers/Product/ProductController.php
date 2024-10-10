@@ -5,7 +5,11 @@ namespace App\Http\Controllers\Product;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\StoreRequest;
 use App\Http\Requests\Product\UpdateRequest;
+use App\Models\Category;
+use App\Models\Color;
 use App\Models\Product;
+use App\Models\Tag;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -24,7 +28,10 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('product.create');
+        $tags = Tag::all();
+        $colors = Color::all();
+        $categories = Category::all();
+        return view('product.create', compact('tags', 'colors', 'categories'));
     }
 
     /**
@@ -32,8 +39,28 @@ class ProductController extends Controller
      */
     public function store(StoreRequest $request)
     {
+
        $data = $request->validated();
-       Product::create($data);
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $previewPath = $request->file('image')->store('images/posts', 'public');
+            $data['image'] = $previewPath;
+        }
+        $tagsIds = $data['tags'] ?? [];
+        $colorsIds = $data['colors'] ?? [];
+        unset($data['tags'],$data['colors']);
+        DB::beginTransaction();
+        try {
+            $product = Product::create($data);
+            if ($tagsIds) {
+                $product->tags()->attach($tagsIds);
+            }
+            if ($colorsIds) {
+                $product->colors()->attach($colorsIds);
+            }
+            DB::commit();
+        } catch (\Exception $exception) {
+            DB::rollBack();
+        }
 
        return redirect()->route('product.index');
     }

@@ -28,10 +28,12 @@ class StoreRequest extends FormRequest
             'slug' => 'required|string',
             'price' => 'required|numeric',
             'description' => 'required|string',
-//            'image' => 'required|string',
-//            'available' => 'required|boolean',
+            'image' => '',
+//            'available' => 'nullable|boolean',
             'quantity' => 'required|integer',
-//            'category_id' => 'required|exists:categories,id',
+            'category_id' => '',
+            'tags' => 'nullable|array',
+            'colors' => 'nullable|array',
         ];
     }
 

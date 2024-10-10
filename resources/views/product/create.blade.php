@@ -23,7 +23,7 @@
         <div class="container-fluid">
             <!-- Small boxes (Stat box) -->
             <div class="row">
-                <form action="{{ route('product.store') }}" method="post">
+                <form action="{{ route('product.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="productName">Name</label>
@@ -48,7 +48,9 @@
                     </div>
                     <div class="form-group">
                         <label for="productDescription">Description</label>
-                        <input type="text" name="description" class="form-control" id="productDescription" value="{{old('description')}}" placeholder="Description">
+                        <textarea name="description" class="form-control" id="productDescription" placeholder="Description">
+                            {{old('description')}}
+                        </textarea>
                         @error('description')
                         <div class="text-danger">444{{ $message }}</div>
                         @enderror
@@ -73,7 +75,45 @@
 {{--                        <input type="text" name="quantity" class="form-control" id="productQuantity" placeholder="Category Id">--}}
 {{--                    </div>--}}
 
+                    <div class="form-group">
+                        <label>Tags</label>
+                        <select name="tags[]" class="tags" multiple="multiple" data-placeholder="Select a Tags" style="width: 100%;">
+                            @foreach($tags as $tag)
+                                <option value="{{$tag->id}}">{{$tag->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Colors</label>
+                        <select name="colors[]" class="colors" multiple="multiple" data-placeholder="Select a Colors" style="width: 100%;">
+                            @foreach($colors as $color)
+                                <option value="{{$color->id}}">{{$color->color}}</option>
+                            @endforeach
+                        </select>
+                    </div>
 
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select name="category_id" class="form-control select2" style="width: 100%;">
+                            <option selected="selected" disabled>{{__('Choose category')}}</option>
+                            @foreach($categories as $category)
+                                <option value="{{$category->id}}"
+                                    {{$category->id == old('category_id') ? 'selected' : ''}}>
+                                    {{$category->name}}
+                                </option>
+                            @endforeach
+
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="imageInputFile">Upload image</label>
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input name="image" type="file" class="custom-file-input" id="imageInputFile">
+                                <label class="custom-file-label" for="imageInputFile">Choose file</label>
+                            </div>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <input type="submit" class="btn btn-primary" value="Add">
                     </div>
