@@ -4,8 +4,12 @@ use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\Color\ColorController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\Tag\TagController;
+use App\Http\Controllers\User\TokenController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\Product\StoreController;
+use App\Http\Controllers\Api\Product\UpdateController;
+use App\Http\Controllers\Api\Product\DestroyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 Route::get('/', \App\Http\Controllers\Main\IndexController::class.'@index')->name('main.index');
 Route::group(['prefix' => 'categories'], function () {
     Route::get('/', CategoryController::class.'@index')->name('category.index');
@@ -53,6 +58,7 @@ Route::group(['prefix' => 'users'], function () {
     Route::get('/{user}', UserController::class.'@show')->name('user.show');
     Route::patch('/{user}', [UserController::class,'update'])->name('user.update');
     Route::delete('/{user}', [UserController::class,'delete'])->name('user.delete');
+    Route::post('/generate-token', [TokenController::class, 'generateFixedToken'])->name('generate.token');
 });
 Route::group(['prefix' => 'products'], function () {
     Route::get('/', [ProductController::class, 'index'])->name('product.index');

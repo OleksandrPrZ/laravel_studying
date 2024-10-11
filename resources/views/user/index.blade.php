@@ -34,6 +34,8 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Name</th>
+                                    <th>Token</th>
+                                    <th>Generate Token</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -41,6 +43,30 @@
                                     <tr>
                                         <td>{{$user->id}}</td>
                                         <td><a href="{{route('user.show', $user->id)}}">{{$user->name}}</a></td>
+                                        <td>
+                                            @if($user->tokens->isNotEmpty())
+                                                <ul>
+                                                    @foreach($user->tokens as $token)
+                                                        <li>
+                                                            {{ $token->name }} {{ $token->token }}
+                                                            ({{ $token->created_at->format('Y-m-d H:i:s') }})
+                                                        </li>
+                                                        @if (session('realToken') && session('userId') == $user->id)
+                                                            <li>
+                                                                {{ __('Your Token for User ID ') }} {{ session()->pull('userId') }}: {{ session()->pull('realToken') }}
+                                                            </li>
+                                                        @endif
+                                                    @endforeach
+                                                </ul>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <form action="{{route('generate.token')}}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="user_id" value="{{ $user->id }}">
+                                                <input type="submit" class="btn btn-default" value="Generate Token">
+                                            </form>
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>

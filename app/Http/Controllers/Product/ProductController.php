@@ -48,14 +48,15 @@ class ProductController extends Controller
         $tagsIds = $data['tags'] ?? [];
         $colorsIds = $data['colors'] ?? [];
         unset($data['tags'],$data['colors']);
+
         DB::beginTransaction();
         try {
             $product = Product::create($data);
             if ($tagsIds) {
-                $product->tags()->attach($tagsIds);
+                $product->tags()->sync($tagsIds);
             }
             if ($colorsIds) {
-                $product->colors()->attach($colorsIds);
+                $product->colors()->sync($colorsIds);
             }
             DB::commit();
         } catch (\Exception $exception) {
