@@ -82,19 +82,17 @@
                             <option {{old('gender') == 2 ? ' selected' : ''}} value="2">Female</option>
                         </select>
                     </div>
-{{--                    <div class="form-group w-50">--}}
-{{--                        <label>Role</label>--}}
-{{--                        <select class="form-control" name="role">--}}
-{{--                            @foreach($roles as $id => $role)--}}
-{{--                                <option value="{{$id}}"--}}
-{{--                                    {{$id == old('role') ? 'selected' : ''}}--}}
-{{--                                >{{$role}}</option>--}}
-{{--                            @endforeach--}}
-{{--                        </select>--}}
-{{--                        @error('role')--}}
-{{--                        <div class="text-danger">{{$message}}</div>--}}
-{{--                        @enderror--}}
-{{--                    </div>--}}
+                    <div class="form-group">
+                        <label for="roles">Roles:</label>
+                        <select name="roles[]" id="roles" class="form-control roles" multiple>
+                            @foreach($roles as $role)
+                                <option value="{{ $role->id }}"
+                                    {{ isset($user) && $user->roles->contains($role->id) ? 'selected' : '' }}>
+                                    {{ $role->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
                     <input type="submit" class="btn btn-primary" value="Add">
                 </form>
             </div>

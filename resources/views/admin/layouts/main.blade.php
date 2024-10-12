@@ -174,6 +174,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{route('admin.roles.index')}}" class="nav-link">
+                            <i class="nav-icon fas fa-users-cog"></i>
+                            <p>{{__('User\'s roles')}}</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{route('admin.tag.index')}}" class="nav-link">
                             <i class="nav-icon fas fa-tags"></i>
                             <p>{{__('Tags')}}</p>
@@ -230,6 +236,7 @@
     $(function () {
         $('.tags').select2();
         $('.colors').select2();
+        $('.roles').select2();
     })
 </script>
 </body>

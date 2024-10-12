@@ -36,6 +36,7 @@
                                     <th>Name</th>
                                     <th>Token</th>
                                     <th>Generate Token</th>
+                                    <th>Roles</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -66,6 +67,11 @@
                                                 <input type="hidden" name="user_id" value="{{ $user->id }}">
                                                 <input type="submit" class="btn btn-default" value="Generate Token">
                                             </form>
+                                        </td>
+                                        <td>
+                                            @foreach($user->roles as $role)
+                                                <span class="badge badge-info">{{ $role->name }}</span>
+                                            @endforeach
                                         </td>
                                     </tr>
                                 @endforeach

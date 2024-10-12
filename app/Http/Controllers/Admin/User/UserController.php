@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\User\StoreRequest;
 use App\Http\Requests\User\UpdateRequest;
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -14,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::with('tokens')->get();
+        $users = User::with(['tokens','roles'])->get();
 
         return view('admin.user.index', compact('users'));
     }
@@ -24,7 +25,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.user.create');
+        $roles = Role::all();
+
+        return view('admin.user.create', compact('roles'));
     }
 
     /**
@@ -33,7 +36,9 @@ class UserController extends Controller
     public function store(StoreRequest $request)
     {
         $data = $request->validated();
-        User::firstOrCreate($data);
+        unset($data['roles']);
+        $user = User::firstOrCreate($data);
+        $user->roles()->sync($request->roles);
 
         return redirect()->route('admin.user.index');
     }
@@ -54,8 +59,9 @@ class UserController extends Controller
     public function edit(string $id)
     {
         $user = User::find($id);
+        $roles = Role::all();
 
-        return view('admin.user.edit', compact('user'));
+        return view('admin.user.edit', compact('user','roles'));
     }
 
     /**
@@ -64,11 +70,14 @@ class UserController extends Controller
     public function update(UpdateRequest $request, string $id)
     {
         $data = $request->validated();
+        unset($data['roles']);
         $user = User::query()->findOrFail($id);
         $user->update($data);
+        $user->roles()->sync($request->roles);
 
         return redirect()->route('admin.user.index');
     }
+
 
     /**
      * Remove the specified resource from storage.
