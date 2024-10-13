@@ -19,9 +19,6 @@ Route::group(['namespace' => 'App\Http\Controllers\Main'], function () {
     Route::get('/', 'IndexController')->name('main.index');
 });
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
 
 Route::get('/dashboard', function () {
     return view('dashboard');

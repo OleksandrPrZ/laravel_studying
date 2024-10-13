@@ -229,6 +229,7 @@
 <script src="{{asset('adminlte/plugins/select2/js/select2.full.min.js')}}"></script>
 <!-- overlayScrollbars -->
 <script src="{{asset('adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
+<script src="{{asset('adminlte/plugins/bs-custom-file-input/bs-custom-file-input.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('adminlte/dist/js/adminlte.js')}}"></script>
 
@@ -237,6 +238,7 @@
         $('.tags').select2();
         $('.colors').select2();
         $('.roles').select2();
+        bsCustomFileInput.init();
     })
 </script>
 </body>
