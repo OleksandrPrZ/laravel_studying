@@ -3,7 +3,7 @@ name: Deploy to AWS (shop branch)
 on:
   push:
     branches:
-      - shop  
+      - shop
   pull_request:
     branches:
       - shop
@@ -19,7 +19,7 @@ jobs:
 
     - name: Build CSS and JS
       run: |
-        npm run prod  
+        npm run build
 
     - name: Setup SSH
       uses: webfactory/ssh-agent@v0.5.3
@@ -29,11 +29,11 @@ jobs:
     - name: Deploy to server
       run: |
         ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
-          cd /home/ubuntu/server/zavolod.site/www  
-          git pull origin shop  
+          cd /home/ubuntu/server/zavolod.site/www
+          git pull origin shop
           composer install --no-interaction --prefer-dist --optimize-autoloader
-          php artisan migrate --force 
-          php artisan cache:clear  
+          php artisan migrate --force
+          php artisan cache:clear
           php artisan config:clear
           php artisan route:clear
           php artisan view:clear
