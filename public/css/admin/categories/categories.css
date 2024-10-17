@@ -1,0 +1,12 @@
+.dd-handle {
+    display: inline-block;
+    width: auto;
+    margin-right: 10px;
+}
+.category-actions {
+    display: inline-block;
+    margin-left: 10px;
+}
+.category-actions button {
+    margin-right: 5px;
+}

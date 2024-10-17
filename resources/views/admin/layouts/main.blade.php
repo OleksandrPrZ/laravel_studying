@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="{{asset('adminlte/dist/css/adminlte.min.css')}}">
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{asset('adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nestable2/1.6.0/jquery.nestable.min.css" />
+    @yield('custom_css')
 
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -230,16 +232,10 @@
 <!-- overlayScrollbars -->
 <script src="{{asset('adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
 <script src="{{asset('adminlte/plugins/bs-custom-file-input/bs-custom-file-input.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/nestable2/1.6.0/jquery.nestable.min.js"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('adminlte/dist/js/adminlte.js')}}"></script>
 
-<script>
-    $(function () {
-        $('.tags').select2();
-        $('.colors').select2();
-        $('.roles').select2();
-        bsCustomFileInput.init();
-    })
-</script>
+@yield('custom_js')
 </body>
 </html>

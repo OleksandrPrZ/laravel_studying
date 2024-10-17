@@ -1,4 +1,9 @@
 @extends('admin.layouts.main')
+
+@section('custom_css')
+    <link rel="stylesheet" href="{{ asset('css/admin/categories/categories.css') }}">
+@endsection
+
 @section('content')
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -20,36 +25,35 @@
 
     <!-- Main content -->
     <section class="content">
-        <div class="container-fluid">
-            <!-- Small boxes (Stat box) -->
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <a href="{{route('admin.category.create')}}" class="btn btn-primary">{{__('Add new')}}</a>
-                        </div>
-                        <div class="card-body table-responsive p-0">
-                            <table class="table table-hover text-nowrap">
-                                <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($categories as $category)
-                                    <tr>
-                                        <td>{{$category->id}}</td>
-                                        <td><a href="{{route('admin.category.show', $category->id)}}">{{$category->name}}</a></td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+        <!-- Форма для додавання/редагування категорії -->
+        <form id="category-form">
+            <input type="hidden" id="category-id" name="category_id" value="">
+            <div>
+                <label for="category-name">Category Name:</label>
+                <input type="text" id="category-name" name="name" required>
             </div>
-             <!-- /.row -->
+            <div>
+                <label for="parent-id">Parent Category:</label>
+                <select id="parent-id" name="parent_id">
+                    <option value="">None</option>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <button type="submit">Save</button>
+        </form>
+
+        <!-- Дерево категорій -->
+        <div class="dd" id="nestable">
+            <ol class="dd-list">
+                @foreach ($categories as $category)
+                    @include('admin.category.partials.category_item', ['category' => $category])
+                @endforeach
+            </ol>
+        </div>
+
+        <!-- /.row -->
             <!-- Main row -->
 
             <!-- /.row (main row) -->
