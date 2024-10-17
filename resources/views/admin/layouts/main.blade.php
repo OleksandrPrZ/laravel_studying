@@ -237,5 +237,6 @@
 <script src="{{asset('adminlte/dist/js/adminlte.js')}}"></script>
 
 @yield('custom_js')
+<script src="{{ asset('adminlte/js/custom.js') }}"></script>
 </body>
 </html>

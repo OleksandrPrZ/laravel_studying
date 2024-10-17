@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api\Product;
 use App\Contracts\Product\ProductRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\UpdateRequest;
-use Illuminate\Http\Request;
 
 class UpdateController extends Controller
 {
