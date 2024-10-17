@@ -74,7 +74,7 @@ class ColorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function delete1(string $id)
+    public function delete(string $id)
     {
         Color::query()->findOrFail($id)->delete();
 
