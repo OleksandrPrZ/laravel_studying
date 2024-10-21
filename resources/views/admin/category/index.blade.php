@@ -25,8 +25,9 @@
 
     <!-- Main content -->
     <section class="content">
-        <!-- Форма для додавання/редагування категорії -->
-        <form id="category-form">
+
+        <form action="{{ route('admin.category.store') }}" id="category-form" method="post">
+            @csrf
             <input type="hidden" id="category-id" name="category_id" value="">
             <div>
                 <label for="category-name">Category Name:</label>
@@ -43,11 +44,9 @@
             </div>
             <button type="submit">Save</button>
         </form>
-
-        <!-- Дерево категорій -->
         <div class="dd" id="nestable">
             <ol class="dd-list">
-                @foreach ($categories as $category)
+                @foreach ($nestedCategories as $category)
                     @include('admin.category.partials.category_item', ['category' => $category])
                 @endforeach
             </ol>

@@ -2,45 +2,68 @@
 $(document).ready(function(){
     $('#nestable').nestable();
 
-    // Обробка форми додавання/редагування категорії
     $('#category-form').on('submit', function(e){
         e.preventDefault();
+        let categoryId = $('#category-id').val();
         let formData = $(this).serialize();
 
-        $.ajax({
-            url: '/categories',
-            method: 'POST',
-            data: formData,
-            success: function(response) {
-                location.reload(); // Перезавантажуємо сторінку після успіху
-            },
-            error: function(xhr) {
-                alert('Error occurred!');
-            }
-        });
+        if (categoryId) {
+            $.ajax({
+                url: `/admin/categories/${categoryId}`,
+                method: 'PATCH',
+                data: formData,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    location.reload();
+                },
+                error: function(xhr) {
+                    alert('Error occurred!');
+                }
+            });
+        } else {
+            $.ajax({
+                url: '/admin/categories/store',
+                method: 'POST',
+                data: formData,
+                success: function(response) {
+                    location.reload();
+                },
+                error: function(xhr) {
+                    alert('Error occurred!');
+                }
+            });
+        }
     });
 
-    // Обробка редагування категорії
     $('.edit-category').on('click', function(){
-        let categoryId = $(this).data('id');
-
-        $.get(`/categories/${categoryId}/edit`, function(category){
+        debugger;
+        // let categoryId = $(this).data('id');
+        let editUrl = $(this).data('edit-url');
+        $.get(editUrl, function(category){
             $('#category-id').val(category.id);
             $('#category-name').val(category.name);
             $('#parent-id').val(category.parent_id);
         });
     });
 
-    // Обробка видалення категорії
     $('.delete-category').on('click', function(){
         let categoryId = $(this).data('id');
 
-        if(confirm('Are you sure you want to delete this category?')) {
+        if (confirm('Are you sure you want to delete this category?')) {
             $.ajax({
-                url: `/categories/${categoryId}`,
+                url: `/admin/categories/${categoryId}`,
                 method: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 success: function(response) {
-                    location.reload();
+                    if (response.success) {
+                        location.reload();
+                    } else {
+                        alert(response.message || 'Error occurred while deleting category.');
+                    }
                 },
                 error: function(xhr) {
                     alert('Error occurred!');

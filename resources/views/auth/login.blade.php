@@ -30,7 +30,7 @@
                              style="background-image: url('{{asset('front/assets/images/inner-pages/login-bg.png')}}');">
                             <div class="top-title text-center ">
                                 <h2>Login</h2>
-                                <p>Don't have an account yet? <a href="register.html">Sign up for free</a></p>
+                                <p>Don't have an account yet? <a href="{{ route('register') }}">Sign up for free</a></p>
                             </div>
                             <form method="POST" action="{{ route('login') }}" class="common-form">
                                 @csrf

@@ -13,8 +13,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::with('children')->whereNull('parent_id')->get();
-        return view('admin.category.index', compact('categories'));
+        $categories = Category::all();
+        $nestedCategories = Category::with('children')->whereNull('parent_id')->get();
+
+        return view('admin.category.index', compact('categories', 'nestedCategories'));
     }
 
     /**
@@ -62,10 +64,10 @@ class CategoryController extends Controller
     public function update(StoreRequest $request, string $id)
     {
         $data = $request->validated();
-        $category = Category::query()->findOrFail($id);
+        $category = Category::findOrFail($id);
         $category->update($data);
 
-        return redirect()->route('admin.category.index');
+        return response()->json(['success' => true, 'message' => 'Category updated successfully.']);
     }
 
     /**
@@ -75,6 +77,6 @@ class CategoryController extends Controller
     {
         Category::query()->findOrFail($id)->delete();
 
-        return redirect()->route('admin.category.index');
+        return response()->json(['success' => true, 'message' => 'Category deleted successfully.']);
     }
 }

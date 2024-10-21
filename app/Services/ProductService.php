@@ -29,11 +29,10 @@ class ProductService
      */
     public function createProductWithRelations(array $data): Product
     {
-        DB::beginTransaction();
-
         $tagsIds = $data['tags'] ?? [];
         $colorsIds = $data['colors'] ?? [];
         unset($data['tags'], $data['colors']);
+        DB::beginTransaction();
         try {
             $product = $this->productRepository->create($data);
             if (!empty($tagsIds)) {

@@ -30,7 +30,7 @@
                                 <a href="{{route('admin.tag.edit',$tag->id)}}"
                                    class="btn btn-primary">{{__('Edit')}}</a>
                             </div>
-                            <form action="{{route('tag.delete',$tag->id)}}" method="post">
+                            <form action="{{route('admin.tag.delete',$tag->id)}}" method="post">
                                 @csrf
                                 @method('delete')
                                 <input type="submit" class="btn btn-danger" value="Delete">

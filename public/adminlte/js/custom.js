@@ -1,18 +1,21 @@
 
 $(document).ready(function(){
     $('#nestable').nestable();
-
-    // Обробка форми додавання/редагування категорії
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
     $('#category-form').on('submit', function(e){
         e.preventDefault();
         let formData = $(this).serialize();
 
         $.ajax({
-            url: '/categories',
+            url: '/admin/categories/store',
             method: 'POST',
             data: formData,
             success: function(response) {
-                location.reload(); // Перезавантажуємо сторінку після успіху
+                location.reload();
             },
             error: function(xhr) {
                 alert('Error occurred!');
@@ -20,24 +23,21 @@ $(document).ready(function(){
         });
     });
 
-    // Обробка редагування категорії
     $('.edit-category').on('click', function(){
         let categoryId = $(this).data('id');
 
-        $.get(`/categories/${categoryId}/edit`, function(category){
+        $.get(`admin/categories/${categoryId}/edit`, function(category){
             $('#category-id').val(category.id);
             $('#category-name').val(category.name);
             $('#parent-id').val(category.parent_id);
         });
     });
 
-    // Обробка видалення категорії
     $('.delete-category').on('click', function(){
-        let categoryId = $(this).data('id');
-
+        let deleteUrl = $(this).data('delete-url');
         if(confirm('Are you sure you want to delete this category?')) {
             $.ajax({
-                url: `/categories/${categoryId}`,
+                url: deleteUrl,
                 method: 'DELETE',
                 success: function(response) {
                     location.reload();

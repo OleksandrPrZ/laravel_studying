@@ -11,16 +11,18 @@ use App\Http\Controllers\Admin\User\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin|manager']], function () {
-    Route::get('/', IndexController::class . '@index')->name('admin.main.index');
+    Route::get('/', [IndexController::class, 'index'])->name('admin.main.index');
+
     Route::group(['prefix' => 'categories'], function () {
-        Route::get('/', CategoryController::class . '@index')->name('admin.category.index');
-        Route::get('/create', CategoryController::class . '@create')->name('admin.category.create');
+        Route::get('/', [CategoryController::class, 'index'])->name('admin.category.index');
+        Route::get('/create', [CategoryController::class, 'create'])->name('admin.category.create');
         Route::post('/store', [CategoryController::class, 'store'])->name('admin.category.store');
-        Route::get('/{category}/edit', CategoryController::class . '@edit')->name('admin.category.edit');
-        Route::get('/{category}', CategoryController::class . '@show')->name('admin.category.show');
-        Route::patch('/{category}', CategoryController::class . '@update')->name('admin.category.update');
-        Route::delete('/{category}', CategoryController::class . '@delete')->name('admin.category.delete');
+        Route::get('/{category}/edit', [CategoryController::class, 'edit'])->name('admin.category.edit');
+        Route::get('/{category}', [CategoryController::class, 'show'])->name('admin.category.show');
+        Route::patch('/{category}', [CategoryController::class, 'update'])->name('admin.category.update');
+        Route::delete('/{category}', [CategoryController::class, 'delete'])->name('admin.category.delete');
     });
+
     Route::group(['prefix' => 'tags'], function () {
         Route::get('/', TagController::class . '@index')->name('admin.tag.index');
         Route::get('/create', TagController::class . '@create')->name('admin.tag.create');
