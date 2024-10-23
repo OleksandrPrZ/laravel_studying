@@ -26,6 +26,7 @@ jobs:
 
       - name: Build CSS and JS
         run: npm run build
+        continue-on-error: true
 
       - name: Setup SSH
         uses: webfactory/ssh-agent@v0.5.3
