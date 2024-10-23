@@ -16,8 +16,10 @@ import { createApp } from 'vue';
 const app = createApp({});
 
 import ExampleComponent from './components/ExampleComponent.vue';
-app.component('example-component', ExampleComponent);
+import MiniCartComponent from './components/MiniCartComponent.vue';
 
+app.component('example-component', ExampleComponent);
+app.component('mini-cart-component', MiniCartComponent);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

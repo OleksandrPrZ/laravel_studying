@@ -54,6 +54,7 @@
                                     <div class="menubar"> <span></span> <span></span> <span></span> </div> <a
                                         href="index.html" class="logo"> <img src="{{asset('front/assets/images/logo/logo.png')}}"
                                                                              alt=""> </a>
+
                                     <div class="cart-holder">
                                         <a href="#0" class="cart cart-icon position-relative">
                                             <i class="flaticon-shopping-cart"></i>
@@ -454,18 +455,18 @@
                                             </ul>
                                         </nav>
 
-
-                                        <div class="right d-flex align-items-center justify-content-end">
-                                            <ul class="main-menu__widge-box d-flex align-items-center ">
-                                                <li class="d-lg-block d-none"><a href="my-account.html"><i
-                                                            class="flaticon-user"></i> </a></li>
-                                                <li class="d-lg-block d-none"><a href="wishlist.html"
-                                                                                 class="number"><i class="flaticon-heart"></i> <span
-                                                            class="count">(2)</span> </a> </li>
-                                                <li class="cartm"> <a href="#0" class="number cart-icon"> <i
-                                                            class="flaticon-shopping-cart"></i><span
-                                                            class="count">(5)</span> </a> </li>
-                                            </ul>
+                                        <div id="app">
+                                            <div class="right d-flex align-items-center justify-content-end">
+                                                <ul class="main-menu__widge-box d-flex align-items-center ">
+                                                    <li class="d-lg-block d-none"><a href="my-account.html"><i
+                                                                class="flaticon-user"></i> </a></li>
+                                                    <li class="d-lg-block d-none"><a href="wishlist.html"
+                                                                                     class="number"><i
+                                                                class="flaticon-heart"></i> <span
+                                                                class="count">(2)</span> </a></li>
+                                                    <mini-cart-component></mini-cart-component>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -476,8 +477,6 @@
             </div>
         </div>
     </div>
-
-
 
 
     <div class="sticy-header">
@@ -928,6 +927,7 @@
 <script src="{{asset('front/assets/js/plugin/jquery.countdown.min.js')}}"></script> <!-- Main js -->
 <script src="{{asset('front/assets/js/main.js')}}"></script>
 <!--==== Js Scripts End ====-->
+@vite('resources/js/app.js')
 </body>
 
 </html>
