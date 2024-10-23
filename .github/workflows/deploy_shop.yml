@@ -22,14 +22,10 @@ jobs:
           node-version: '20'
 
       - name: Install npm dependencies
-        run: |
-          npm install
+        run: npm install
 
       - name: Build CSS and JS
-        run: |
-          npm run build
-          continue-on-error: true
-
+        run: npm run build
 
       - name: Setup SSH
         uses: webfactory/ssh-agent@v0.5.3
